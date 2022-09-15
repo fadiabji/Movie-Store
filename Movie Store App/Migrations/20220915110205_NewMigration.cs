@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Movie_Store_App.Migrations
 {
-    public partial class AddtablesToDatabase : Migration
+    public partial class NewMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,8 @@ namespace Movie_Store_App.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Director = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ReleasYear = table.Column<int>(type: "int", nullable: false),
-                    Pirce = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Pirce = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -15,5 +15,7 @@ namespace Movie_Store_App.Models
         [Required]
         public decimal Pirce { get; set; }
 
+        public string Image { get; set; }
+
     }
 }

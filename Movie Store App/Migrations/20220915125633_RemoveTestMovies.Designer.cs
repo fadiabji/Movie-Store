@@ -12,8 +12,8 @@ using Movie_Store_App.Data;
 namespace Movie_Store_App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220914182115_AddtablesToDatabase")]
-    partial class AddtablesToDatabase
+    [Migration("20220915125633_RemoveTestMovies")]
+    partial class RemoveTestMovies
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,10 @@ namespace Movie_Store_App.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Director")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
