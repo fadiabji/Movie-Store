@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Movie_Store_App.Models.Movie>
+
+@{
+    ViewData["Title"] = "Gallery";
+}
+
+<h1>Gallery</h1>
+
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                        @item.Title
+                </div>
+                <div class="card-body">
+                    <img src="~/images/@item.Image" height="150" /> <br/>
+                    @item.Pirce $
+               
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Movie" asp-action="Create" asp-route-id="@item.Id">Add to cart</a>
+                </div>
+            </div>
+        </div>   
+        }
+    </div>
+</div>
