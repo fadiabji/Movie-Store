@@ -9,7 +9,7 @@ namespace Movie_Store_App.Models
         [Required]
         public string Firstname { get; set; }
         [Required]
-        public int Lastname { get; set; }
+        public string Lastname { get; set; }
         [Required]
         public string Emailaddress { get; set; }
 

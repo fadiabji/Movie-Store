@@ -27,6 +27,15 @@ namespace Movie_Store_App.Controllers
                           Problem("Entity set 'ApplicationDbContext.Movies'  is null.");
         }
 
+
+        // GET: Movies
+        public async Task<IActionResult> Gallery()
+        {
+            return _context.Movies != null ?
+                        View(await _context.Movies.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Movies'  is null.");
+        }
+
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -116,34 +125,12 @@ namespace Movie_Store_App.Controllers
                 { await file.CopyToAsync(filestream); }
 
                 movie.Image = filename;
-
             }
-            if (id != movie.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(movie);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MovieExists(movie.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                
+                _context.Update(movie);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(movie);
+           
         }
 
         // GET: Movies/Delete/5

@@ -11,7 +11,7 @@ namespace Movie_Store_App.Models
         [Required]
         public int MovieId { get; set; }
         [Required]
-        public int Price { get; set; }
+        public decimal Price { get; set; }
        
     }
 }
