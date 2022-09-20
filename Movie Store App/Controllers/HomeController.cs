@@ -19,7 +19,7 @@ namespace Movie_Store_App.Controllers
         public IActionResult Index()
         {
             //Generate a Session here
-            var customer = new Customer() { Id = 1, Firstname = "sessionFname", Lastname = "sessionLname" };
+            var customer = new Customer() { Id = 1001, Firstname = "sessionFname", Lastname = "sessionLname" };
             HttpContext.Session.SetString("CustomerIdSession", JsonConvert.SerializeObject(customer));
             return View();
         }
