@@ -17,6 +17,7 @@ using static NuGet.Packaging.PackagingConstants;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.Design;
 
 namespace Movie_Store_App.Controllers
 {
@@ -67,44 +68,26 @@ namespace Movie_Store_App.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
-        public async Task<IActionResult> Create(int movieId, [Bind("CustomerId,OrderDate")] Order order)
+
+        public async Task<IActionResult> AddToCart(int movieId,  [Bind("OrderId, MovieId, Price")] OrderRow orderRow, [Bind("CustomerId,OrderDate")] Order order)
         {
             var customer = JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("CustomerIdSession"));
             order.CustomerId = customer.Id;
             order.OrderDate = DateTime.Now;
-            
-            _context.Add(order);
-            await _context.SaveChangesAsync();
-            
-            return RedirectToAction(nameof(myorder), new { action = "myorders", Id = order.Id });
-        }
 
-        public async Task<IActionResult> myorder( int Id , [Bind("OrderId,MovieId,Price")] OrderRow orderRow)
-        {
-            var customer = JsonConvert.DeserializeObject<Customer>(HttpContext.Session.GetString("CustomerIdSession"));
-            var customerId = customer.Id;
-            var order = await _context.Orders.FindAsync(Id);
-            //orderRow.MovieId = Id;
+            orderRow.MovieId = movieId;
             orderRow.OrderId = order.Id;
 
-            var movie = await _context.Movies.FindAsync(Id);
+            var movie = await _context.Movies.FindAsync(movieId);
             orderRow.Price = movie.Pirce;
-
-            int quantity = 1;
-            List<OrderRow> cart = new List<OrderRow>();
-
-            if (cart.Contains(orderRow))
-            {
-                quantity++;
-                orderRow.Price = quantity * orderRow.Price;
-                cart.Add(orderRow);
-            }
+           
+            _context.Add(order);
+            await _context.SaveChangesAsync();
             _context.Add(orderRow);
             await _context.SaveChangesAsync();
-            
-            return View(Index);
+            return RedirectToAction("Gallery", "Movies");
         }
+
 
       
         // GET: Orders/Edit/5
